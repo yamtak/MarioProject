@@ -5,7 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
 
-    private float jump = 500f;
+    private float jump = 5000f;
     Rigidbody2D rb;
 
     // Start is called before the first frame update
@@ -19,14 +19,14 @@ public class Player : MonoBehaviour
     {
         float direction = Input.GetAxis("Horizontal");
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
-        Vector2 force = new Vector2(direction*120, 0);
+        Vector2 force = new Vector2(direction*20, 0);
         rb.AddForce(force);
 
-        if (Input.GetKeyDown(KeyCode.Space))//ジャンプ思いつかず
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             transform.localPosition = new Vector2(
                 transform.localPosition.x,
-                transform.localPosition.y + jump);//アニメで飛ばす
+                transform.localPosition.y + 100);
 
         }
     }
