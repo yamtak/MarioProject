@@ -57,24 +57,27 @@ public class Player : MonoBehaviour
         //これはここで良いのか不明
         currentTime += Time.deltaTime;
 
-        animator.SetFloat("Speed", x);
+        //animator.SetFloat("Speed", x);
 
         //停止の場合
         if (x == 0) 
         {
             direction = DIRECTION_TYPE.STOP;
         }
+
         //右移動
         else if (x > 0)
         {
             direction = DIRECTION_TYPE.RIGHT;
             transform.localScale = new Vector2(1, 1);
+            animator.SetFloat("Speed", x);
         }
         //左移動
         else if (x < 0) 
         {
             direction = DIRECTION_TYPE.LEFT;
             transform.localScale = new Vector2(-1, 1);
+            animator.SetFloat("Speed", -x);
         }
         //地面への設置兼スペース押下、Downが押した瞬間で有効
         if (IsGround() && Input.GetKeyDown("space")) 
@@ -134,13 +137,13 @@ public class Player : MonoBehaviour
         //アタッチしたTriggerに別のオブジェクトが接した時に起動
         //扉もこのパターン？
     { 
-        //もしTrapタグに振れた場合、GameOverへ遷移
+        //もしTrapタグに触れた場合、GameOverへ遷移
         if (collision.gameObject.tag == "Trap") 
         {
             gameManager.GameOver();
         }
 
-        //もしClearタグに振れた場合、GameClearへ遷移
+        //もしClearタグに触れた場合、GameClearへ遷移
         if (collision.gameObject.tag == "Clear") 
         {
             gameManager.GameClear();
