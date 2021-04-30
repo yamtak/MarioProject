@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
     void Start() 
     {
         //開始と同時に再生してみる
-        StartTimeline.Play();
+        //StartTimeline.Play();
         //終わったので状態をGAMEにする
         gameStatus = GAME_STATUS.GAME;
     }
@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviour
     {
         gameOverText.SetActive(true);//SetActive使えるけどTimelineに入れても良い
         GameOverTimeline.Play();
+        Time.timeScale = 0f;//動きとめてみた
         RestartScene();
     }
 
@@ -39,6 +40,7 @@ public class GameManager : MonoBehaviour
     {
         gameClearText.SetActive(true);
         GameClearTimeline.Play();
+        Time.timeScale = 0f;
         RestartScene();
     }
 

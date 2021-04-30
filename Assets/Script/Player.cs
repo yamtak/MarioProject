@@ -43,13 +43,15 @@ public class Player : MonoBehaviour
     //-------------------------------------------------------------------------------
     private void Update() 
     {
+        //if (gameStatus == GameStatus.Start) 
+        //{
+        //    return;
+        //}
 
         //Çòé≤ëÄçÏ
         float x = Input.GetAxis("Horizontal");
         //Ç±ÇÍÇÕÇ±Ç±Ç≈ó«Ç¢ÇÃÇ©ïsñæ
         currentTime += Time.deltaTime;
-
-        //animator.SetFloat("Speed", x);
 
         //í‚é~ÇÃèÍçá
         if (x == 0) 

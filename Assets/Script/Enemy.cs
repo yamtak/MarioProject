@@ -22,6 +22,7 @@ public class Enemy : MonoBehaviour
     //-------------------------------------------------------------------------------
     private void FixedUpdate()//決まったタイミングで更新、多分入力時
     {
+
         switch (direction) {
             case DIRECTION_TYPE.RIGHT:
                 speed = 3;
