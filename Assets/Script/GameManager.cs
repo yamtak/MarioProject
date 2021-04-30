@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;//これは忘れる
 using UnityEngine.Playables;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -31,11 +32,20 @@ public class GameManager : MonoBehaviour
     {
         gameOverText.SetActive(true);//SetActive使えるけどTimelineに入れても良い
         GameOverTimeline.Play();
+        RestartScene();
     }
 
     public void GameClear() //ゲームクリアな更新
     {
         gameClearText.SetActive(true);
         GameClearTimeline.Play();
+        RestartScene();
     }
+
+    void RestartScene() 
+    {
+        Scene thisScene = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(thisScene.name);
+    }
+
 }
