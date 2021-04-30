@@ -14,7 +14,8 @@ public class Player : MonoBehaviour
     //public AnimationClip Jump;
     //-------------------------------------------------------------------------------
     //プレイヤーの動きを状態として捉える
-    public enum DIRECTION_TYPE {
+    public enum DIRECTION_TYPE
+    {
         STOP,
         RIGHT,
         LEFT,
@@ -25,22 +26,23 @@ public class Player : MonoBehaviour
     //今回の場合は念仏のように唱える
     //が、エラーが出てしまった、どうやら継承の問題のよう
     Rigidbody2D rigidbody2D;
+    float speed;
     //Rb2dと似た様相
     Animator animator;
 
-    //移動値
-    [SerializeField] private float speed;
     //ジャンプ値……押し続けて+させても良いかも、今回は一回押し
     [SerializeField] private float jumpPower = 4000;
     //-------------------------------------------------------------------------------
-    private void Start() {
+    private void Start() 
+    {
         //開始したら重力を発生、設定上1にしてあるけど、重めにしてジャンプ力を強くしても良いかも
         rigidbody2D = GetComponent<Rigidbody2D>();
         //Animatorを持ってくるよ
         animator = GetComponent<Animator>();
     }
     //-------------------------------------------------------------------------------
-    private void Update() {
+    private void Update() 
+    {
 
         //ｘ軸操作
         float x = Input.GetAxis("Horizontal");
@@ -50,24 +52,28 @@ public class Player : MonoBehaviour
         //animator.SetFloat("Speed", x);
 
         //停止の場合
-        if (x == 0) {
+        if (x == 0) 
+        {
             direction = DIRECTION_TYPE.STOP;
         }
 
         //右移動
-        else if (x > 0) {
+        else if (x > 0) 
+        {
             direction = DIRECTION_TYPE.RIGHT;
             transform.localScale = new Vector2(1, 1);
             animator.SetFloat("Speed", x);
         }
         //左移動
-        else if (x < 0) {
+        else if (x < 0) 
+        {
             direction = DIRECTION_TYPE.LEFT;
             transform.localScale = new Vector2(-1, 1);
             animator.SetFloat("Speed", -x);
         }
         //地面への設置兼スペース押下、Downが押した瞬間で有効
-        if (IsGround() && Input.GetKeyDown("space")) {
+        if (IsGround() && Input.GetKeyDown("space")) 
+        {
             Jump();//Jumpの項目参照
         }
 
@@ -77,7 +83,8 @@ public class Player : MonoBehaviour
     {
 
         //状態をスイッチさせるswitch文
-        switch (direction) {
+        switch (direction) 
+        {
             //switch(式)
             //case 定数
             //……実行処理;
@@ -134,7 +141,11 @@ public class Player : MonoBehaviour
             gameManager.GameClear();
         }
 
-
+        if (collision.gameObject.tag == "Enemy") 
+        {
+            gameManager.GameOver();
+            Debug.Log("敵だよ");
+        }
 
     }
 
