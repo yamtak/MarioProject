@@ -2,19 +2,9 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    //GameManagerとつなぐ
-    [SerializeField] GameManager gameManager;
-    //プレイヤーの状態をblockと設定
-    public LayerMask blockLayer;
-    //currenttimeしておく
-    private float currentTime = 0f;
-    //-------------------------------------------------------------------------------
-    //private Animation anim;
-    //public AnimationClip Run;
-    //public AnimationClip Jump;
-    //-------------------------------------------------------------------------------
-    //プレイヤーの動きを状態として捉える
-    public enum DIRECTION_TYPE
+    [SerializeField] GameManager gameManager;    //GameManagerとつなぐ
+    public LayerMask blockLayer;//プレイヤーの状態をblockと設定
+    public enum DIRECTION_TYPE//プレイヤーの動きを状態として捉える
     {
         STOP,
         RIGHT,
@@ -22,59 +12,50 @@ public class Player : MonoBehaviour
     }
 
     DIRECTION_TYPE direction = DIRECTION_TYPE.STOP;
-    //-------------------------------------------------------------------------------
-    //今回の場合は念仏のように唱える
-    //が、エラーが出てしまった、どうやら継承の問題のよう
-    Rigidbody2D rigidbody2D;
-    float speed;
-    //Rb2dと似た様相
-    Animator animator;
 
-    //ジャンプ値……押し続けて+させても良いかも、今回は一回押し
-    [SerializeField] private float jumpPower = 4000;
+    private float currentTime = 0f;//currenttimeしておく
+
     //-------------------------------------------------------------------------------
-    private void Start() 
+    //今回の場合は念仏のように唱えるが、エラーが出てしまった、どうやら継承の問題のよう
+    Rigidbody2D rigidbody2D;
+    [SerializeField] float speed;
+    [SerializeField] private float jumpPower = 4000;//ジャンプ値……押し続けて+させても良いかも、今回は一回押し
+
+    Animator animator;//Rb2dと似た様相
+    //-------------------------------------------------------------------------------
+    private void Start()
     {
-        //開始したら重力を発生、設定上1にしてあるけど、重めにしてジャンプ力を強くしても良いかも
-        rigidbody2D = GetComponent<Rigidbody2D>();
-        //Animatorを持ってくるよ
-        animator = GetComponent<Animator>();
+        rigidbody2D = GetComponent<Rigidbody2D>();//開始したら重力を発生、設定上1にしてあるけど、重めにしてジャンプ力を強くしても良いかも
+        animator = GetComponent<Animator>();//Animatorを持ってくるよ
     }
     //-------------------------------------------------------------------------------
-    private void Update() 
+    private void Update()
     {
-        //if (gameStatus == GameStatus.Start) 
-        //{
-        //    return;
-        //}
-
         //ｘ軸操作
         float x = Input.GetAxis("Horizontal");
-        //これはここで良いのか不明
-        currentTime += Time.deltaTime;
+        currentTime += Time.deltaTime;//これはここで良いのか不明
 
         //停止の場合
-        if (x == 0) 
+        if (x == 0)
         {
             direction = DIRECTION_TYPE.STOP;
         }
 
         //右移動
-        else if (x > 0) 
+        else if (x > 0)
         {
             direction = DIRECTION_TYPE.RIGHT;
-            transform.localScale = new Vector2(1, 1);
+            transform.localScale = new Vector3(1, 1, 1);
             animator.SetFloat("Speed", x);
         }
         //左移動
-        else if (x < 0) 
+        else if (x < 0)
         {
             direction = DIRECTION_TYPE.LEFT;
-            transform.localScale = new Vector2(-1, 1);
+            transform.localScale = new Vector3(-1, 1, 1);
             animator.SetFloat("Speed", -x);
         }
-        //地面への設置兼スペース押下、Downが押した瞬間で有効
-        if (IsGround() && Input.GetKeyDown("space")) 
+        if (IsGround() && Input.GetKeyDown("space"))//地面への設置兼スペース押下、Downが押した瞬間で有効
         {
             Jump();//Jumpの項目参照
         }
@@ -83,9 +64,7 @@ public class Player : MonoBehaviour
     //-------------------------------------------------------------------------------
     private void FixedUpdate()//決まったタイミングで更新、多分入力時
     {
-
-        //状態をスイッチさせるswitch文
-        switch (direction) 
+        switch (direction)//状態をスイッチさせるswitch文
         {
             //switch(式)
             //case 定数
@@ -108,14 +87,12 @@ public class Player : MonoBehaviour
     //-------------------------------------------------------------------------------
     private void Jump() //jumpした時に更新
     {
-        //rigidbody2Dの速度変化はnew値を代入（2次の速度、yはvelocity）
-        rigidbody2D.AddForce(Vector2.up * jumpPower);
+        rigidbody2D.AddForce(Vector2.up * jumpPower);//rigidbody2Dの速度変化はnew値を代入（2次の速度、yはvelocity）
         animator.SetTrigger("Jumping");
     }
     //-------------------------------------------------------------------------------
     bool IsGround() //設置した状態
     {
-        //設置判定で線を表示する方法があったがcolliderでも良いのかな？
         Vector3 leftStartPositon = transform.position - Vector3.right * 0.5f;
         Vector3 rightStartPositon = transform.position + Vector3.right * 0.5f;
         Vector3 endPositon = transform.position - Vector3.up * 0.2f;
@@ -129,21 +106,18 @@ public class Player : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     //Unityの関数、物理でのみ使用
     //アタッチしたTriggerに別のオブジェクトが接した時に起動
-    //扉もこのパターン？
     {
-        //もしTrapタグに触れた場合、GameOverへ遷移
-        if (collision.gameObject.tag == "Trap") 
+        if (collision.gameObject.tag == "Trap")//もしTrapタグに触れた場合、GameOverへ遷移
         {
             gameManager.GameOver();
         }
 
-        //もしClearタグに触れた場合、GameClearへ遷移
-        if (collision.gameObject.tag == "Clear") 
+        if (collision.gameObject.tag == "Clear")//もしClearタグに触れた場合、GameClearへ遷移
         {
             gameManager.GameClear();
         }
 
-        if (collision.gameObject.tag == "Enemy") 
+        if (collision.gameObject.tag == "Enemy")
         {
             gameManager.GameOver();
             Debug.Log("敵だよ");
