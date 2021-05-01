@@ -28,20 +28,18 @@ public class GameManager : MonoBehaviour
         gameStatus = GAME_STATUS.GAME;
     }
 
-    public void GameOver() //ゲームオーバーな更新
+    public void GameOver()//ゲームオーバーな更新
     {
         gameOverText.SetActive(true);//SetActive使えるけどTimelineに入れても良い
         GameOverTimeline.Play();
-        Time.timeScale = 0f;//動きとめてみた
-        RestartScene();
+        Invoke("RestartScene", 4f);
     }
 
-    public void GameClear() //ゲームクリアな更新
+    public void GameClear()//ゲームクリアな更新
     {
         gameClearText.SetActive(true);
         GameClearTimeline.Play();
-        Time.timeScale = 0f;
-        RestartScene();
+        Invoke("RestartScene", 4f);
     }
 
     void RestartScene() 

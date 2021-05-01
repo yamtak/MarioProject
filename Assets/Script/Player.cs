@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] GameManager gameManager;    //GameManagerとつなぐ
+    [SerializeField] GameManager gameManager;//GameManagerとつなぐ
     public LayerMask blockLayer;//プレイヤーの状態をblockと設定
     public enum DIRECTION_TYPE//プレイヤーの動きを状態として捉える
     {
@@ -14,6 +14,10 @@ public class Player : MonoBehaviour
     DIRECTION_TYPE direction = DIRECTION_TYPE.STOP;
 
     private float currentTime = 0f;//currenttimeしておく
+
+    [SerializeField] AudioClip SE_Jump;
+    [SerializeField] AudioClip SE_Damage;
+    AudioSource audioSource;
 
     //-------------------------------------------------------------------------------
     //今回の場合は念仏のように唱えるが、エラーが出てしまった、どうやら継承の問題のよう
@@ -27,6 +31,7 @@ public class Player : MonoBehaviour
     {
         rigidbody2D = GetComponent<Rigidbody2D>();//開始したら重力を発生、設定上1にしてあるけど、重めにしてジャンプ力を強くしても良いかも
         animator = GetComponent<Animator>();//Animatorを持ってくるよ
+        audioSource = GetComponent<AudioSource>();
     }
     //-------------------------------------------------------------------------------
     private void Update()
@@ -89,6 +94,7 @@ public class Player : MonoBehaviour
     {
         rigidbody2D.AddForce(Vector2.up * jumpPower);//rigidbody2Dの速度変化はnew値を代入（2次の速度、yはvelocity）
         animator.SetTrigger("Jumping");
+        audioSource.PlayOneShot(SE_Jump);
     }
     //-------------------------------------------------------------------------------
     bool IsGround() //設置した状態
@@ -120,7 +126,7 @@ public class Player : MonoBehaviour
         if (collision.gameObject.tag == "Enemy")
         {
             gameManager.GameOver();
-            Debug.Log("敵だよ");
+            audioSource.PlayOneShot(SE_Damage);
         }
 
     }
