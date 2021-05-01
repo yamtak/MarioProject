@@ -7,8 +7,9 @@ public class Door : MonoBehaviour
     public GameObject Player; //プレイヤーを設定
     public GameObject DoorOut;//移動先のドアを設定
     [SerializeField] private PlayableDirector MoveTimeline;
-
     private Vector2 playerPosition;//プレイヤーのポジションを取得する変数
+
+
 
     void Start() 
     {
