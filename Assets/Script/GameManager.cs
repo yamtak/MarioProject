@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
     void Start() 
     {
         //ŠJn‚Æ“¯‚ÉÄ¶‚µ‚Ä‚İ‚é
-        //StartTimeline.Play();
+        StartTimeline.Play();
         //I‚í‚Á‚½‚Ì‚Åó‘Ô‚ğGAME‚É‚·‚é
         gameStatus = GAME_STATUS.GAME;
     }

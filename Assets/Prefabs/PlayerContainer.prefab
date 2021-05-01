@@ -156,7 +156,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 15
+  m_GravityScale: 4
   m_Material: {fileID: 6200000, guid: 1257c9fa805128945a29a32822c540ca, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -179,7 +179,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   speed: 0
-  jumpPower: 1800
+  jumpPower: 800
 --- !u!95 &8681177309779456734
 Animator:
   serializedVersion: 3
