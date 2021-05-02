@@ -12,13 +12,13 @@ public class Enemy : MonoBehaviour
 
     DIRECTION_TYPE direction;
 
-    Rigidbody2D rigidbody2D;
+    Rigidbody2D rigidbody2DEnemy;
     float speed;
 
     //-------------------------------------------------------------------------------
     private void Start()
     {
-        rigidbody2D = GetComponent<Rigidbody2D>();
+        rigidbody2DEnemy = GetComponent<Rigidbody2D>();
         direction = DIRECTION_TYPE.RIGHT;
     }
 
@@ -68,6 +68,6 @@ public class Enemy : MonoBehaviour
                 transform.localScale = new Vector3(-1, 1, 1);
                 break;
         }
-        rigidbody2D.velocity = new Vector2(speed, rigidbody2D.velocity.y);
+        rigidbody2DEnemy.velocity = new Vector2(speed, rigidbody2DEnemy.velocity.y);
     }
 }

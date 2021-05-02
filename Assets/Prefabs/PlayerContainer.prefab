@@ -199,8 +199,8 @@ MonoBehaviour:
   blockLayer:
     serializedVersion: 2
     m_Bits: 1024
-  SE_Jump: {fileID: 0}
-  SE_Damage: {fileID: 0}
+  SE_Jump: {fileID: 8300000, guid: fc58c7c55bc2ec94994b4bc4c551f7a1, type: 3}
+  SE_Damage: {fileID: 8300000, guid: 851d13071821a874bbe7211b9343a623, type: 3}
   speed: 0
   jumpPower: 800
 --- !u!95 &8681177309779456734

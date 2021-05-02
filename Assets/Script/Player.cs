@@ -21,7 +21,7 @@ public class Player : MonoBehaviour
 
     //-------------------------------------------------------------------------------
     //今回の場合は念仏のように唱えるが、エラーが出てしまった、どうやら継承の問題のよう
-    Rigidbody2D rigidbody2D;
+    Rigidbody2D rigidbody2DPlayer;
     [SerializeField] float speed;
     [SerializeField] private float jumpPower = 4000;//ジャンプ値……押し続けて+させても良いかも、今回は一回押し
 
@@ -29,7 +29,7 @@ public class Player : MonoBehaviour
     //-------------------------------------------------------------------------------
     private void Start()
     {
-        rigidbody2D = GetComponent<Rigidbody2D>();//開始したら重力を発生、設定上1にしてあるけど、重めにしてジャンプ力を強くしても良いかも
+        rigidbody2DPlayer = GetComponent<Rigidbody2D>();//開始したら重力を発生、設定上1にしてあるけど、重めにしてジャンプ力を強くしても良いかも
         animator = GetComponent<Animator>();//Animatorを持ってくるよ
         audioSource = GetComponent<AudioSource>();
     }
@@ -87,12 +87,12 @@ public class Player : MonoBehaviour
         }
         //rigidbody2Dの速度変化はnew値を代入（2次の速度、yはvelocity）
         //……AddForceでも良いのかなと思ったけど横移動は質量を感じない方がヨサソウ
-        rigidbody2D.velocity = new Vector2(speed, rigidbody2D.velocity.y);
+        rigidbody2DPlayer.velocity = new Vector2(speed, rigidbody2DPlayer.velocity.y);
     }
     //-------------------------------------------------------------------------------
     private void Jump() //jumpした時に更新
     {
-        rigidbody2D.AddForce(Vector2.up * jumpPower);//rigidbody2Dの速度変化はnew値を代入（2次の速度、yはvelocity）
+        rigidbody2DPlayer.AddForce(Vector2.up * jumpPower);//rigidbody2Dの速度変化はnew値を代入（2次の速度、yはvelocity）
         animator.SetTrigger("Jumping");
         audioSource.PlayOneShot(SE_Jump);
     }
@@ -140,17 +140,15 @@ public class Player : MonoBehaviour
     //{
     //    if (collision.gameObject.tag == "MoveFloor")
     //    {
-    //        var emptyObject = new GameObject();
-    //        emptyObject.transform.parent = collision.gameObject.transform;
-    //        this.transform.SetParent (emptyObject.gameObject.transform);
+    //        transform.SetParent(collision.transform);
     //    }
     //}
 
     //void OnCollisionExit2D(Collision2D collision)
     //{
-    //    if (transform.parent != null && collision.gameObject.tag == "MoveFloor")
+    //    if (collision.gameObject.tag == "MoveFloor")
     //    {
-    //        transform.parent = null;
+    //        transform.SetParent(null);
     //    }
     //}
 
