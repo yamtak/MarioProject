@@ -129,6 +129,29 @@ public class Player : MonoBehaviour
             audioSource.PlayOneShot(SE_Damage);
         }
 
+
     }
+    //-------------------------------------------------------------------------------
+
+
+
+
+    //void OnCollisionEnter2D(Collision2D collision)
+    //{
+    //    if (collision.gameObject.tag == "MoveFloor")
+    //    {
+    //        var emptyObject = new GameObject();
+    //        emptyObject.transform.parent = collision.gameObject.transform;
+    //        this.transform.SetParent (emptyObject.gameObject.transform);
+    //    }
+    //}
+
+    //void OnCollisionExit2D(Collision2D collision)
+    //{
+    //    if (transform.parent != null && collision.gameObject.tag == "MoveFloor")
+    //    {
+    //        transform.parent = null;
+    //    }
+    //}
 
 }
